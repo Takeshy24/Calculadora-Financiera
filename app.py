@@ -1,8 +1,28 @@
+import os
+import subprocess
+
 import streamlit as st
 from modules.cartera import mostrar_modulo_cartera
 from modules.jubilacion import mostrar_modulo_jubilacion
 from modules.bonos import mostrar_modulo_bonos
 from utils.exportar import generar_pdf_reporte
+
+def install_chrome():
+    try:
+        subprocess.run(["google-chrome", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("✅ Chrome ya está instalado")
+    except:
+        print("⬇️ Instalando Google Chrome...")
+        subprocess.run([
+            "apt-get", "update"
+        ], check=True)
+        subprocess.run([
+            "apt-get", "install", "-y", "google-chrome-stable"
+        ], check=True)
+        print("✅ Chrome instalado correctamente")
+
+install_chrome()
+
 
 st.set_page_config(
     page_title="Calculadora Financiera",
